@@ -1,0 +1,73 @@
+.bootstrap-tagsinput {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    display: inline-block;
+    padding: .5rem;
+    margin: 2px 4px 2px 0;
+    color:#32373c;
+    overflow: hidden;
+}
+.bootstrap-tagsinput input {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 6px;
+    margin: 0;
+    width: auto;
+    max-width: inherit;
+}
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+    color: #777;
+    opacity: 1;
+}
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+    color: #777;
+}
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+    color: #777;
+}
+.bootstrap-tagsinput input:focus {
+    border: none;
+    box-shadow: none;
+}
+.bootstrap-tagsinput .tag { 
+    position: relative;
+    border-radius: .125rem;
+    padding: 2px 30px 2px 8px;
+    margin-right: .35rem;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    color:#32373c;
+    background:#f2f2f2;
+    border: 1px solid #ccc;
+    margin-bottom: .25rem;
+    display: inline-block;
+}
+.bootstrap-tagsinput .tag [data-role="remove"] { 
+    position: absolute;
+    width: 18px;
+    height: 19px;
+    top: 2px;
+    right: 2px;
+    text-align: center;
+    background: #c1c1c1; 
+    cursor: pointer;
+    border-radius: .125rem;
+    padding: 0 2px;
+    color:#757575;
+    line-height: 10px;
+    overflow: initial;
+    padding-top: .27rem;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+    content: "x";
+    padding: 0px 2px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}

@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+body{
+    font-family: 'Lato', sans-serif;
+}
+.pr-0{
+    padding-right: 0;
+}
+.pl-0{
+    padding-left: 0;
+}
+.row{
+    margin-left:0;
+    margin-right: 0;
+}
+/* INVOICE PAGE */
+.invoice-page{
+    margin-top: 60px;
+}
+.top-container{
+    max-width: 760px;
+    margin: auto;
+}
+.top-container .back-home{
+    position:absolute;
+    left: 0;
+    top: 0;
+}
+.main {
+    overflow: hidden;
+    min-height: 100vh;
+    margin-bottom: 1rem;
+}
+.topbar {
+    padding: 10px;
+    height: 51px;
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+}
+.kuitansi .inv {
+    font-size: 13px;
+    width: 100%;
+    max-width: 760px;
+    margin: auto;
+    font-family: 'Lato', sans-serif;;
+    border: 0px solid #ddd;
+}
+.inv_header{
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+.inv_header .inv_header_title{
+    text-align: right;
+    font-size: 16px;
+    font-weight: 600;
+}
+.kuitansi .inv_head{
+    margin: 20px 0;
+    border-bottom: 4px solid #cbcbcb;
+}
+.kuitansi .inv__head__title {
+    color: #828184;
+    font-size: 0.8rem;
+}
+.kuitansi .inv_head--left {
+    border-right: 4px solid #cbcbcb;
+    padding-right: 10px;
+    min-height: 100px;
+}
+
+.kuitansi .inv_head--right {
+    padding-left: 20px;
+}
+.kuitansi .inv__to__name {
+    margin: 5px 0;
+    color: #000;
+}
+.kuitansi .inv__head__col:first-child{
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+.kuitansi .inv__head__col{
+    display: inline-block;
+    width: 49.2%;
+}
+.kuitansi table tfoot{
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-bottom: 1px solid #c0c0c0;
+}
+.kuitansi .inv_payment{
+    background: #fff;
+    padding: 1rem;
+    border-radius: .2rem;
+    border: 1px solid #c0c0c0;
+}
+.kuitansi .inv_payment_title{
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+.kuitansi .d-flex{
+    display: flex;
+}
+.kuitansi .inv_payment .bank_name{
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000;
+    line-height: 1.25;
+}
+.kuitansi .inv_payment .bank_account{
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000;
+    line-height: 1.25;
+}
+.kuitansi .inv_payment .bank_number{
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.25;
+}
+.kuitansi .inv_lastupdate p{
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #666666;
+}
+
+.bank_payment {
+    display: flex;
+    flex-wrap: wrap;
+}
+.bank_payment > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%; 
+}
+.col-flex {
+    flex: 1 0 0%;
+}
+.bank_payment .bank_image{
+    width: 100%;
+    max-width: 200px;
+}
+.bank_payment .bank_image > img{
+    width: 100%;
+}
+.table-bank tr td{
+    line-height: normal;
+}
+/* PRINT */
+@media print{
+    @page {
+        size: A4;
+    }
+    .topbar, .paymentproof {
+        display: none;
+    }
+    .kuitansi .inv {
+        max-width: 760px;
+        padding: 30px;
+    }
+}

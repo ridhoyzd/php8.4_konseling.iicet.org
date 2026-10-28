@@ -1,0 +1,405 @@
+body, html {
+    height: 100%;
+}
+body {
+    background: #f1f3f6;
+    color: #4c4d4d;
+    font-family: "Poppins", sans-serif;
+}
+a, .btn-link{
+    text-decoration: none;
+}
+a:hover, .btn-link:hover, .btn-link:active, .btn-link:focus{
+    text-decoration: none; 
+}
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #31708F;
+    font-weight: 400;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: #0000008f;
+    z-index: 999999999 !important;
+    text-align: center; 
+    border-top: none;
+    border-bottom: none; 
+    overflow: hidden;
+}
+.preloader .text {
+    width: 300px;
+    margin: 0 auto;
+    height: 40px;
+    background-color: #FFF3CD;
+    border-top: none;
+    border-left: 1px solid #ffeeba;
+    border-right: 1px solid #ffeeba;
+    border-bottom: 1px solid #ffeeba;
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+} 
+.logo a .logo-text{
+    color: #ffffff;
+    font-size: 1.675rem;
+    font-weight: 500;
+}
+.logo a .logo-text b{
+    font-weight: 800;
+}
+.logo a > img{
+    width: 200px;
+}
+#main-wrapper.limpato-login-register {
+    background: #fff;
+}
+.limpato-login-register .left-wrap {
+    position: relative;
+    overflow: hidden;
+}
+.limpato-login-register .left-wrap .left-mask {
+    z-index: 1;
+}
+.limpato-login-register .left-wrap .left-mask, 
+.limpato-login-register .left-wrap .left-bg, 
+.limpato-login-register .left-wrap .left-bg-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+} 
+
+.limpato-login-register .opacity-8 {
+    opacity: 0.8;
+}
+.limpato-login-register .left-wrap .left-bg.left-bg-scroll {
+    background-attachment: scroll;
+}
+.limpato-login-register .left-wrap .left-bg {
+    z-index: 0;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    transition: background-image 300ms ease-in 200ms;
+}
+.limpato-login-register .left-wrap .left-content {
+    position: relative;
+    z-index: 2;
+}
+.limpato-login-register .text-11 {
+    font-size: 2.75rem !important;
+}
+.limpato-login-register .text-4 {
+    font-size: 18px !important;
+    font-size: 1.125rem !important;
+}
+.limpato-login-register .line-height-4 {
+    line-height: 1.6 !important;
+}
+.limpato-login-register form {
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+.pwdMask {
+    position: relative;
+}
+.pwdMask .pwd-toggle {
+    top: 12px;
+    right: 15px;
+    color: #ccc;
+    position: absolute;
+    z-index: 2;
+}
+.cursor-pointer{
+    cursor:  pointer !important;
+}
+
+.limpato-login-register .form-control:not(.form-control-sm) {
+    padding: .65rem .96rem;
+    height: inherit;
+}
+.limpato-login-register .form-control {
+    border-color: #dae1e3;
+    font-size: 16px;
+    color: #656565;
+}
+.limpato-login-register .btn:not(.btn-link) {
+    -webkit-box-shadow: 0px 5px 15px rgb(0 0 0 / 15%);
+    box-shadow: 0px 5px 15px rgb(0 0 0 / 15%);
+}
+.limpato-login-register .btn {
+    padding: 0.7rem 2.6rem;
+    font-weight: 500;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.limpato-login-register .form-control:focus {
+    box-shadow: none;
+    text-shadow: none;
+}
+.text-separator {
+  margin-top: 24px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  white-space: nowrap;
+  text-align: center;
+  color: rgba(0,0,0,0.38);
+  font-size: 0.8571428571428571rem;
+}
+.text-separator:before {
+  content: '';
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  margin: auto 18px auto 0;
+  padding-right: 10px;
+}
+.text-separator:after {
+  content: '';
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  margin: auto 0 auto 18px;
+  padding-right: 10px;
+}
+/* password strength meter */
+.input-group-meter .form-control:focus {
+    border-color: #ced4da;
+  }
+  meter {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0 auto;
+    margin-bottom: 0;
+    margin-top: 0;
+    width: 100%;
+    height: 0.5rem;
+  
+    /* Applicable only to Firefox */
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  meter::-webkit-meter-bar {
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  meter[value="1"]::-webkit-meter-optimum-value {
+    background: #dc3545;
+  }
+  meter[value="2"]::-webkit-meter-optimum-value {
+    background: #fd7e14;
+  }
+  meter[value="3"]::-webkit-meter-optimum-value {
+    background: #28a745;
+  }
+  meter[value="4"]::-webkit-meter-optimum-value {
+    background: #177a2e;
+  }
+  meter[value="1"]::-moz-meter-bar {
+    background: #dc3545;
+  }
+  meter[value="2"]::-moz-meter-bar {
+    background: #fd7e14;
+  }
+  meter[value="3"]::-moz-meter-bar {
+    background: #28a745;
+  }
+  meter[value="4"]::-moz-meter-bar {
+    background: #177a2e;
+  }
+  
+  .feedback {
+    color: #9ab;
+    font-size: 90%;
+    padding: 0 0.25em;
+    margin-top: 0;
+  }
+  .password-strength-result {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+  .password-strength-result .result-content {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  .password-strength-result .result-content .worst {
+    background-color: #f1adad;
+    border: 1px solid #e35b5b;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .password-strength-result .result-content .bad {
+    background-color: #fbc5a9;
+    border: 1px solid #f78b53;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .password-strength-result .result-content .weak {
+    background-color: #ffe399;
+    border: 1px solid #ffc733;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .password-strength-result .result-content .good {
+    background-color: #c1e1b9;
+    border: 1px solid #83c373;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .password-strength-result .result-content .strong {
+    background-color: #9fdb90;
+    border: 1px solid #83c373;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+/* Theme */
+/* Theme Primary -- */
+.limpato-login-register.theme-primary a, 
+.limpato-login-register.theme-primary .btn-link{
+    color: #158386 !important;
+}
+.limpato-login-register.theme-primary a:hover, 
+.limpato-login-register.theme-primary .btn-link:hover, 
+.limpato-login-register.theme-primary .btn-link:active, 
+.limpato-login-register.theme-primary .btn-link:focus{ 
+    color: #158386;
+}
+.limpato-login-register.theme-primary .btn-primary {
+    background-color: #158386;
+    border-color: #158386;
+}
+.limpato-login-register.theme-primary .btn-primary:hover, 
+.limpato-login-register.theme-primary .btn-primary:active,
+.limpato-login-register.theme-primary .btn-primary:focus {
+    background-color: #158386;
+    border-color: #158386;
+}
+.limpato-login-register.theme-primary .bg-primary, 
+.limpato-login-register.theme-primary .badge-primary {
+    background-color: #073c3e !important;
+}
+/* Theme Blue -- */
+.limpato-login-register.theme-blue a, 
+.limpato-login-register.theme-blue .btn-link{
+    color: #007bff !important;
+}
+.limpato-login-register.theme-blue a:hover, 
+.limpato-login-register.theme-blue .btn-link:hover, 
+.limpato-login-register.theme-blue .btn-link:active, 
+.limpato-login-register.theme-blue .btn-link:focus{ 
+    color: #007bff;
+}
+.limpato-login-register.theme-blue .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.limpato-login-register.theme-blue .btn-primary:hover, 
+.limpato-login-register.theme-blue .btn-primary:active,
+.limpato-login-register.theme-blue .btn-primary:focus {
+    background-color: #006adb;
+    border-color: #006adb;
+}
+.limpato-login-register.theme-blue .bg-primary, 
+.limpato-login-register.theme-blue .badge-primary {
+    background-color: #007bff !important;
+}
+/* Theme orange -- */
+.limpato-login-register.theme-orange a, 
+.limpato-login-register.theme-orange .btn-link{
+    color: #fd7e14  !important;
+}
+.limpato-login-register.theme-orange a:hover, 
+.limpato-login-register.theme-orange .btn-link:hover, 
+.limpato-login-register.theme-orange .btn-link:active, 
+.limpato-login-register.theme-orange .btn-link:focus{ 
+    color: #fd7e14 ;
+}
+.limpato-login-register.theme-orange .btn-primary {
+    background-color: #fd7e14 ;
+    border-color: #fd7e14 ;
+}
+.limpato-login-register.theme-orange .btn-primary:hover, 
+.limpato-login-register.theme-orange .btn-primary:active,
+.limpato-login-register.theme-orange .btn-primary:focus {
+    background-color: #fc7608 ;
+    border-color: #fc7608;
+}
+.limpato-login-register.theme-orange .bg-primary, 
+.limpato-login-register.theme-orange .badge-primary {
+    background-color: #fd7e14  !important;
+}
+/* Theme red -- */
+.limpato-login-register.theme-red a, 
+.limpato-login-register.theme-red .btn-link{
+    color: #dc3545  !important;
+}
+.limpato-login-register.theme-red a:hover, 
+.limpato-login-register.theme-red .btn-link:hover, 
+.limpato-login-register.theme-red .btn-link:active, 
+.limpato-login-register.theme-red .btn-link:focus{ 
+    color: #dc3545 ;
+}
+.limpato-login-register.theme-red .btn-primary {
+    background-color: #dc3545 ;
+    border-color: #dc3545 ;
+}
+.limpato-login-register.theme-red .btn-primary:hover, 
+.limpato-login-register.theme-red .btn-primary:active,
+.limpato-login-register.theme-red .btn-primary:focus {
+    background-color: #df2033 ;
+    border-color: #df2033;
+}
+.limpato-login-register.theme-red .bg-primary, 
+.limpato-login-register.theme-red .badge-primary {
+    background-color: #dc3545 !important;
+}
+
+/* Sweet Alert */
+.swal2-popup .swal2-content p{
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+.swal2-icon.swal2-error {
+    border-color: #dc3545 !important;
+}
+.swal2-icon.swal2-error [class^="swal2-x-mark-line"]{
+    background-color: #dc3545 !important;
+}
+.swal2-icon.swal2-success .swal2-success-ring {
+    border: .25em solid #198754 !important;
+}
+.swal2-icon.swal2-success [class^="swal2-success-line"] { 
+    background-color:#198754 !important;
+}
+.swal2-icon.swal2-info {
+    border-color: #0dcaf0 !important;
+    color: #0dcaf0 !important;
+}
+.swal2-icon.swal2-warning {
+    border-color: #ffc107 !important;
+    color: #ffc107 !important;
+}
