@@ -77,8 +77,8 @@ class Dass_process extends CI_Controller {
                     exit('ERROR: Method Not Allowed !');
                 }
 
-                $client_id      = trim($this->input->post('client'));
-                $test_id        = trim($this->input->post('test'));
+                $client_id      = trim_input_value($this->input->post('client'));
+                $test_id        = trim_input_value($this->input->post('test'));
                 $input          = array();
                 $check_data     = $this->dass_process_model->check_data($client_id,$test_id);
                 $kategori_soal  = $this->dass_process_model->kategori_soal();

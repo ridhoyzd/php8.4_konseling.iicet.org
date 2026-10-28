@@ -17,7 +17,7 @@ class Validation extends CI_Controller {
 
     function signature()
     {
-        $code       = trim($this->input->get('code'));
+        $code       = trim_input_value($this->input->get('code'));
         $test_id    = nuxencrypt($code,'show');
 
         if($test_id !='' && $this->validation_model->rekam_detail($test_id)->num_rows() == 1)

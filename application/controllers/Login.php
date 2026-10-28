@@ -54,9 +54,9 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				$remember   = trim($this->input->post('remember',true));
-				$username	= trim($this->input->post('username',true));
-				$password	= md5(trim($this->input->post('password',true)));
+				$remember   = trim_input_value($this->input->post('remember',true));
+				$username	= trim_input_value($this->input->post('username',true));
+				$password	= md5(trim_input_value($this->input->post('password',true)));
 				$user 		= $this->get_user_by_username($username);
 				if(empty($user))
 				{
@@ -188,7 +188,7 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				$email 	= trim($this->input->post('email'));
+				$email 	= trim_input_value($this->input->post('email'));
 				$user 	= $this->auth_model->get_user_by_email($email);
 				if (!empty($user))
 				{
@@ -358,9 +358,9 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				$otp 	= trim($this->input->post('otp'));
-				$key 	= trim($this->input->post('key'));
-				$email 	= trim($this->input->post('email'));
+				$otp 	= trim_input_value($this->input->post('otp'));
+				$key 	= trim_input_value($this->input->post('key'));
+				$email 	= trim_input_value($this->input->post('email'));
 				$user 	= $this->auth_model->validate_otp($email,$key,$otp);
 
 				if (!empty($user))
@@ -441,8 +441,8 @@ class Login extends CI_Controller {
 				}
 				else
 				{
-					$key 	= trim($this->input->post('key'));
-					$email 	= trim($this->input->post('email'));
+					$key 	= trim_input_value($this->input->post('key'));
+					$email 	= trim_input_value($this->input->post('email'));
 	
 					$user 	= $this->auth_model->get_user_by_key_email($email,$key);
 					if (!empty($user))
@@ -451,7 +451,7 @@ class Login extends CI_Controller {
 						$data['user_activation_key']	= random_string('alnum', 16);
 						$data['user_otp'] 				= '';
 						$data['user_otp_expire'] 		= null;
-						$data['user_pass']				= md5(trim($this->input->post('password',true)));
+						$data['user_pass']				= md5(trim_input_value($this->input->post('password',true)));
 						$this->auth_model->update_user($data, $user->user_id);
 						/* End Reset Activation key & Update Password */
 	

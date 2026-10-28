@@ -86,7 +86,7 @@ class Counselor extends CI_Controller {
 				}
 				else
 				{
-					$data['counselor_name']				= trim($this->input->post('counselor_name',true));
+					$data['counselor_name']				= trim_input_value($this->input->post('counselor_name',true));
 					$data['created']					= date('Y-m-d H:i:s');
 
 					if($this->counselor_model->save_data($data))
@@ -141,8 +141,8 @@ class Counselor extends CI_Controller {
                 }
                 else
                 {
-					$id 								= trim($this->input->post('counselor_id',true));
-					$data['counselor_name']				= trim($this->input->post('counselor_name',true));
+					$id 								= trim_input_value($this->input->post('counselor_id',true));
+					$data['counselor_name']				= trim_input_value($this->input->post('counselor_name',true));
 					
                     if($this->counselor_model->update_data($data, $id))
                     {
@@ -191,7 +191,7 @@ class Counselor extends CI_Controller {
 					exit('ERROR: Method Not Allowed !');
 				}
 
-				$id = trim($this->input->post('id'));
+				$id = trim_input_value($this->input->post('id'));
 				if($id != '' && $this->counselor_model->one_data($id)->num_rows() == 1)
 				{
 					// Delete

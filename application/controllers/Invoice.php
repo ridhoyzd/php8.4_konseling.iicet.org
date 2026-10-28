@@ -190,8 +190,8 @@ class Invoice extends CI_Controller {
                     exit('ERROR: Method Not Allowed !');
                 }
 
-				$test_id    = trim($this->input->post('test_id'));
-                $client_id  = trim($this->input->post('client_id'));
+				$test_id    = trim_input_value($this->input->post('test_id'));
+                $client_id  = trim_input_value($this->input->post('client_id'));
 
                 if($this->invoice_model->test_check($test_id,$client_id)->num_rows() == 1)
                 {
@@ -212,10 +212,10 @@ class Invoice extends CI_Controller {
                     }
                     else
                     {
-						$data['diskon']				= trim($this->input->post('diskon'));
-						$data['jumlah_diskon']		= trim($this->input->post('input_diskon'));
-						$data['total_bayar']		= trim($this->input->post('total_bayar'));
-						$data['total_invoice']		= trim($this->input->post('total_invoice'));
+						$data['diskon']				= trim_input_value($this->input->post('diskon'));
+						$data['jumlah_diskon']		= trim_input_value($this->input->post('input_diskon'));
+						$data['total_bayar']		= trim_input_value($this->input->post('total_bayar'));
+						$data['total_invoice']		= trim_input_value($this->input->post('total_invoice'));
 						if($this->invoice_model->test_update($data, $test_id))
 						{
                             $res['status']      = 1;

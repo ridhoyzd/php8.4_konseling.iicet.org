@@ -204,8 +204,8 @@ class Rekam extends CI_Controller {
                     exit('ERROR: Method Not Allowed !');
                 }
 
-                $test_id    = trim($this->input->post('test_id'));
-                $client_id  = trim($this->input->post('client_id'));
+                $test_id    = trim_input_value($this->input->post('test_id'));
+                $client_id  = trim_input_value($this->input->post('client_id'));
 
                 if($this->rekam_model->test_check($test_id,$client_id)->num_rows() == 1)
                 {
@@ -229,14 +229,14 @@ class Rekam extends CI_Controller {
                     {
                         $row = $this->rekam_model->test_check($test_id,$client_id)->row();
                         $therapy_id		            = $this->input->post('therapy_id');
-                        $sesi		            	= trim($this->input->post('sesi',true));
+                        $sesi		            	= trim_input_value($this->input->post('sesi',true));
                         //$data['therapy_id']		= $therapy_id;
                         //$data['therapy_name']		= therapy_info($therapy_id, 'therapy_name');
                         //$data['therapy_price']	= therapy_info($therapy_id, 'therapy_price');
-                        $data['deskripsi_masalah']  = trim($this->input->post('deskripsi_masalah',true));
-                        $data['tindak_lanjut']		= trim($this->input->post('tindak_lanjut',true));
-                        //$data['konselor']		    = trim($this->input->post('konselor',true));
-                        $data['counselor_id']		= trim($this->input->post('counselor_id',true));
+                        $data['deskripsi_masalah']  = trim_input_value($this->input->post('deskripsi_masalah',true));
+                        $data['tindak_lanjut']		= trim_input_value($this->input->post('tindak_lanjut',true));
+                        //$data['konselor']		    = trim_input_value($this->input->post('konselor',true));
+                        $data['counselor_id']		= trim_input_value($this->input->post('counselor_id',true));
                         $data['counselor_name']		= counselor_info($this->input->post('counselor_id'), 'counselor_name');
                         $data['konselor']		    = counselor_info($this->input->post('counselor_id'), 'counselor_name');
                         $data['sesi']		        = $sesi;
@@ -342,7 +342,7 @@ class Rekam extends CI_Controller {
                     exit('ERROR: Method Not Allowed !');
                 }
 
-                $test_id                    = trim($this->input->post('id'));
+                $test_id                    = trim_input_value($this->input->post('id'));
                 $row                        = $this->rekam_model->one_test($test_id)->row();
                 $client_id                  = $row->client_id;
 

@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+if (!function_exists('trim_input_value'))
+{
+	function trim_input_value($value)
+	{
+		return is_scalar($value) ? trim((string) $value) : '';
+	}
+}
+
 if ( ! function_exists('getconfig'))
 {
 	function getconfig($value)

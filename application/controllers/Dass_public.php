@@ -177,9 +177,9 @@ class Dass_public extends CI_Controller {
 	{
 		if($this->session->userdata('logged_as_admin') == 1 && $this->session->userdata('user_level') == 'admin')
 		{
-			$test_id		= trim($this->input->post('test'));
-			$client_id		= trim($this->input->post('client'));
-			$group_id		= trim($this->input->post('group'));
+			$test_id		= trim_input_value($this->input->post('test'));
+			$client_id		= trim_input_value($this->input->post('client'));
+			$group_id		= trim_input_value($this->input->post('group'));
 			
 			if ($this->dass_public_model->check_group_exist($client_id, $group_id)->num_rows() == 1)
 			{
@@ -227,8 +227,8 @@ class Dass_public extends CI_Controller {
 	{
 		if($this->session->userdata('logged_as_admin') == 1 && $this->session->userdata('user_level') == 'admin')
 		{
-			$client_id		= trim($this->input->post('client'));
-			$group_id		= trim($this->input->post('group'));
+			$client_id		= trim_input_value($this->input->post('client'));
+			$group_id		= trim_input_value($this->input->post('group'));
 			
 			if ($this->dass_public_model->check_group_exist($client_id, $group_id)->num_rows() == 1)
 			{

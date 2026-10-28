@@ -88,8 +88,8 @@ class Therapy extends CI_Controller {
 				}
 				else
 				{
-					$data['therapy_name']				= trim($this->input->post('therapy_name',true));
-					$data['therapy_price']				= trim($this->input->post('therapy_price',true));
+					$data['therapy_name']				= trim_input_value($this->input->post('therapy_name',true));
+					$data['therapy_price']				= trim_input_value($this->input->post('therapy_price',true));
 					$data['created']					= date('Y-m-d H:i:s');
 
 					if($this->therapy_model->save_data($data))
@@ -145,9 +145,9 @@ class Therapy extends CI_Controller {
                 }
                 else
                 {
-					$id 								= trim($this->input->post('therapy_id',true));
-					$data['therapy_name']				= trim($this->input->post('therapy_name',true));
-					$data['therapy_price']				= trim($this->input->post('therapy_price',true));
+					$id 								= trim_input_value($this->input->post('therapy_id',true));
+					$data['therapy_name']				= trim_input_value($this->input->post('therapy_name',true));
+					$data['therapy_price']				= trim_input_value($this->input->post('therapy_price',true));
 					
                     if($this->therapy_model->update_data($data, $id))
                     {
@@ -196,7 +196,7 @@ class Therapy extends CI_Controller {
 					exit('ERROR: Method Not Allowed !');
 				}
 
-				$id = trim($this->input->post('id'));
+				$id = trim_input_value($this->input->post('id'));
 				if($id != '' && $this->therapy_model->one_data($id)->num_rows() == 1)
 				{
 					// Delete

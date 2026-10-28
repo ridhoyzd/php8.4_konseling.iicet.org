@@ -169,15 +169,15 @@ class Users extends CI_Controller {
 				}
 				else
 				{
-					$data['user_login']				= trim($this->input->post('user_login',true));
-					$data['user_pass']				= md5(trim($this->input->post('password',true)));
-					$data['user_fullname']			= trim($this->input->post('user_fullname',true));
-					$data['user_email']				= trim($this->input->post('user_email',true));
-					$data['user_phone']				= trim($this->input->post('user_phone',true));
+					$data['user_login']				= trim_input_value($this->input->post('user_login',true));
+					$data['user_pass']				= md5(trim_input_value($this->input->post('password',true)));
+					$data['user_fullname']			= trim_input_value($this->input->post('user_fullname',true));
+					$data['user_email']				= trim_input_value($this->input->post('user_email',true));
+					$data['user_phone']				= trim_input_value($this->input->post('user_phone',true));
 					$data['user_registered']		= date('Y-m-d H:i:s');
 					$data['user_activation_key']	= random_string('alnum', 10);
 					$data['user_registered_type']	= 'web';
-					$data['user_active']			= trim($this->input->post('user_active',true));
+					$data['user_active']			= trim_input_value($this->input->post('user_active',true));
 					$data['user_level']				= 'admin';
 					$data['user_role']				= 1;
 
@@ -234,11 +234,11 @@ class Users extends CI_Controller {
                 }
                 else
                 {
-					$user_id 				= trim($this->input->post('id'));
-                    $data['user_fullname']	= trim($this->input->post('user_fullname',true));
-                    $data['user_email']		= trim($this->input->post('user_email',true));
-                    $data['user_phone']		= trim($this->input->post('user_phone',true));
-                    $data['user_active']	= trim($this->input->post('user_active',true));
+					$user_id 				= trim_input_value($this->input->post('id'));
+                    $data['user_fullname']	= trim_input_value($this->input->post('user_fullname',true));
+                    $data['user_email']		= trim_input_value($this->input->post('user_email',true));
+                    $data['user_phone']		= trim_input_value($this->input->post('user_phone',true));
+                    $data['user_active']	= trim_input_value($this->input->post('user_active',true));
 
                     if($this->user_model->update_user($data, $user_id))
                     {
@@ -364,8 +364,8 @@ class Users extends CI_Controller {
                 }
                 else
                 {
-					$user_id 				= trim($this->input->post('id'));
-                    $data['user_pass']		= md5(trim($this->input->post('password',true)));
+					$user_id 				= trim_input_value($this->input->post('id'));
+                    $data['user_pass']		= md5(trim_input_value($this->input->post('password',true)));
 
                     if($this->user_model->update_user($data, $user_id))
                     {

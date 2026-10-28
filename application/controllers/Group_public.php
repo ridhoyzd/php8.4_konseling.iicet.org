@@ -38,7 +38,7 @@ class Group_public extends CI_Controller {
 	{
 		if($this->session->userdata('logged_as_admin') == 1 && $this->session->userdata('user_level') == 'admin')
 		{ 
-            $id = trim($this->input->post('id'));
+            $id = trim_input_value($this->input->post('id'));
             if($id != '' && $this->group_model->one_group($id)->num_rows() == 1)
             {
                 $row = $this->group_model->one_group($id)->row();
@@ -80,9 +80,9 @@ class Group_public extends CI_Controller {
 				}
 				else
 				{
-					$data['group_name']				= trim($this->input->post('name',true));
-					$data['group_description']		= trim($this->input->post('desc',true));
-                    $data['group_active']		    = trim($this->input->post('active',true));
+					$data['group_name']				= trim_input_value($this->input->post('name',true));
+					$data['group_description']		= trim_input_value($this->input->post('desc',true));
+                    $data['group_active']		    = trim_input_value($this->input->post('active',true));
 					$data['group_created']		    = date('Y-m-d H:i:s');
 					if($this->group_model->save_group($data))
 					{ 
@@ -123,7 +123,7 @@ class Group_public extends CI_Controller {
                     exit('ERROR: Method Not Allowed !');
                 }
                 
-                $id = trim($this->input->post('id'));
+                $id = trim_input_value($this->input->post('id'));
                 if($id != '' && $this->group_model->one_group($id)->num_rows() == 1)
                 {
                     $this->form_validation->set_rules('name', 'Group Name', 'required|callback_name_validation');
@@ -139,9 +139,9 @@ class Group_public extends CI_Controller {
                     }
                     else
                     {
-                        $data['group_name']				= trim($this->input->post('name',true));
-                        $data['group_description']		= trim($this->input->post('desc',true));
-                        $data['group_active']		    = trim($this->input->post('active',true));
+                        $data['group_name']				= trim_input_value($this->input->post('name',true));
+                        $data['group_description']		= trim_input_value($this->input->post('desc',true));
+                        $data['group_active']		    = trim_input_value($this->input->post('active',true));
                         if($this->group_model->update_group($data,$id))
                         { 
                             $res['status']      = 1;
@@ -196,7 +196,7 @@ class Group_public extends CI_Controller {
                     exit('ERROR: Method Not Allowed !');
                 }
                 
-                $id = trim($this->input->post('id'));
+                $id = trim_input_value($this->input->post('id'));
                 if($id != '' && $this->group_model->one_group($id)->num_rows() == 1)
                 {
                     // update client group

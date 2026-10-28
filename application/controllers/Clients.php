@@ -170,16 +170,16 @@ class Clients extends CI_Controller {
 				}
 				else
 				{
-					$c_day 								= trim($this->input->post('cday',true));
-					$c_month 							= trim($this->input->post('cmonth',true));
-					$c_year 							= trim($this->input->post('cyear',true));
-					$data['client_name']				= trim($this->input->post('client_name',true));
-					$data['client_email']				= trim($this->input->post('client_email',true));
-					$data['client_phone']				= trim($this->input->post('client_phone',true));
+					$c_day 								= trim_input_value($this->input->post('cday',true));
+					$c_month 							= trim_input_value($this->input->post('cmonth',true));
+					$c_year 							= trim_input_value($this->input->post('cyear',true));
+					$data['client_name']				= trim_input_value($this->input->post('client_name',true));
+					$data['client_email']				= trim_input_value($this->input->post('client_email',true));
+					$data['client_phone']				= trim_input_value($this->input->post('client_phone',true));
 					$data['client_birthday']			= ''.$c_year.'-'.$c_month.'-'.$c_day.'';
 					$data['client_registered']			= date('Y-m-d H:i:s');
-					$data['client_address']				= trim($this->input->post('client_address',true));
-					$data['client_gender']				= trim($this->input->post('client_gender',true));
+					$data['client_address']				= trim_input_value($this->input->post('client_address',true));
+					$data['client_gender']				= trim_input_value($this->input->post('client_gender',true));
 
 					if($this->client_model->save_client($data))
 					{
@@ -246,16 +246,16 @@ class Clients extends CI_Controller {
                 }
                 else
                 {
-					$id 								= trim($this->input->post('id'));
-					$c_day 								= trim($this->input->post('cday',true));
-					$c_month 							= trim($this->input->post('cmonth',true));
-					$c_year 							= trim($this->input->post('cyear',true));
+					$id 								= trim_input_value($this->input->post('id'));
+					$c_day 								= trim_input_value($this->input->post('cday',true));
+					$c_month 							= trim_input_value($this->input->post('cmonth',true));
+					$c_year 							= trim_input_value($this->input->post('cyear',true));
 
-					$data['client_name']				= trim($this->input->post('client_name',true));
-					$data['client_email']				= trim($this->input->post('client_email',true));
-					$data['client_phone']				= trim($this->input->post('client_phone',true));
-					$data['client_address']				= trim($this->input->post('client_address',true));
-					$data['client_gender']				= trim($this->input->post('client_gender',true));
+					$data['client_name']				= trim_input_value($this->input->post('client_name',true));
+					$data['client_email']				= trim_input_value($this->input->post('client_email',true));
+					$data['client_phone']				= trim_input_value($this->input->post('client_phone',true));
+					$data['client_address']				= trim_input_value($this->input->post('client_address',true));
+					$data['client_gender']				= trim_input_value($this->input->post('client_gender',true));
 					$data['client_birthday']			= ''.$c_year.'-'.$c_month.'-'.$c_day.'';
 					
                     if($this->client_model->update_client($data, $id))
@@ -343,7 +343,7 @@ class Clients extends CI_Controller {
 					exit('ERROR: Method Not Allowed !');
 				}
 
-				$id = trim($this->input->post('id'));
+				$id = trim_input_value($this->input->post('id'));
 				if($id != '' && $this->client_model->one_client($id)->num_rows() == 1)
 				{
 					// Delete Client

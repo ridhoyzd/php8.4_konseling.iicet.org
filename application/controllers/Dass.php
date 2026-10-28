@@ -166,7 +166,7 @@ class Dass extends CI_Controller {
     {
         if($this->session->userdata('logged_as_admin') == 1 && $this->session->userdata('user_level') == 'admin')
 		{
-            $client_id = trim($this->input->get('id'));
+            $client_id = trim_input_value($this->input->get('id'));
             if($client_id != '')
             {
                 if($this->dass_model->one_client($client_id)->num_rows() == 1)
@@ -203,7 +203,7 @@ class Dass extends CI_Controller {
 
     function input()
     {
-        $client_code = trim($this->input->get('code'));
+        $client_code = trim_input_value($this->input->get('code'));
         if($client_code != '')
         {
             if($this->dass_model->client_by_code($client_code)->num_rows() == 1)
@@ -264,7 +264,7 @@ class Dass extends CI_Controller {
                     // $obj        = json_decode($json,true);
                     // $input      = json_decode($json); 
                     
-                    $client_id                  = trim($this->input->post('client_id'));
+                    $client_id                  = trim_input_value($this->input->post('client_id'));
                     $test['client_id']          = $client_id;
                     $test['tanggal_mengisi']    = date('Y-m-d H:i:s');
                     $test['umur_client']        = umur_saat_dass(client_info($client_id,'client_birthday'), date('Y-m-d'));
@@ -330,7 +330,7 @@ class Dass extends CI_Controller {
             }
             else
             {                
-                $client_id                  = trim($this->input->post('client_id'));
+                $client_id                  = trim_input_value($this->input->post('client_id'));
                 $test['client_id']          = $client_id;
                 $test['tanggal_mengisi']    = date('Y-m-d H:i:s');
                 $test['umur_client']        = umur_saat_dass(client_info($client_id,'client_birthday'), date('Y-m-d'));
@@ -399,10 +399,10 @@ class Dass extends CI_Controller {
             else
             {
                 $client_public['client_code']       = strtolower(date('is').random_string('alnum', 4));
-                $client_public['client_name']       = trim($this->input->post('client_name'));
-                $client_public['client_phone']      = trim($this->input->post('client_phone'));
-                $client_public['client_gender']     = trim($this->input->post('client_gender'));
-                $client_public['client_age']        = trim($this->input->post('client_age'));
+                $client_public['client_name']       = trim_input_value($this->input->post('client_name'));
+                $client_public['client_phone']      = trim_input_value($this->input->post('client_phone'));
+                $client_public['client_gender']     = trim_input_value($this->input->post('client_gender'));
+                $client_public['client_age']        = trim_input_value($this->input->post('client_age'));
                 $client_public['client_registered'] = date('Y-m-d H:i:s');
                 
                 if($this->dass_public_model->save_client_public($client_public))
@@ -413,7 +413,7 @@ class Dass extends CI_Controller {
 
                 // Save client_group_public
                 $group['client_id']         = $client_id;
-                $group['group_id']          = trim($this->input->post('group'));
+                $group['group_id']          = trim_input_value($this->input->post('group'));
                 $group['created']           = date('Y-m-d H:i:s');
                 $this->dass_public_model->add_to_group($group);
 
