@@ -453,18 +453,13 @@ $config['csrf_cookie_name'] = '0NgX8rgCyySPVJBJ';
 $config['csrf_expire'] = 86400;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array('users/datatable',
-										'publishers/datatable',
-										'persons/datatable',
-										'persons/upload_signature',
-										'journals/datatable',
-										'loa/datatable',
-										'clients/datatable',
-										'dass/datatable',
-										'dass/client_datatable',
-										'rekam/datatable',
-										'invoice/datatable',
-										'ojs_proxy/fetch',
-										'api_ojs/fetch'
+									'clients/datatable',
+									'dass/datatable',
+									'dass/client_datatable',
+									'dass_public/datatable',
+									'rekam/datatable',
+									'invoice/datatable',
+									'dass_process/process'
                                         );
 
 /*
