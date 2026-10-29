@@ -91,11 +91,11 @@ $html = '<div style="font-family:helvetica;font-size:10pt;color:#535353;">'
     . '.number{text-align:center;}.price{text-align:right;}.total-label{text-align:right;color:#648d1e;font-weight:bold;}.total{color:#648d1e;font-weight:bold;}'
     . '</style></div>';
 
-$pdf = new \Com\Tecnick\Pdf\Tcpdf(unit: 'mm');
+$pdf = new \Com\Tecnick\Pdf\Tcpdf('mm');
 $pdf->setPDFFilename('Invoice-' . $test_id . '.pdf');
 $page = $pdf->addPage(['format' => 'A4', 'orientation' => 'P']);
 $bfont = $pdf->font->insert($pdf->pon, 'helvetica', '', 10);
 $pdf->page->addContent($bfont['out']);
-$pdf->addHTMLCell(html: $html, posx: 10, posy: 5, width: 190);
+$pdf->addHTMLCell($html, 10, 5, 190);
 
 $pdf->downloadPDF($pdf->getOutPDFString());

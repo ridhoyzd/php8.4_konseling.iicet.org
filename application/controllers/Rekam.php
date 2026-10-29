@@ -252,7 +252,8 @@ class Rekam extends CI_Controller {
                         
                         if($row->invoice_code == '')
                         {
-                            $nomor1                 = ''.$client_id.$test_id.$therapy_id.'';
+                            $therapy_code           = is_array($therapy_id) ? implode('', $therapy_id) : $therapy_id;
+                            $nomor1                 = $client_id.$test_id.$therapy_code;
                             $nomor2                 = str_pad($nomor1, 5, "0",STR_PAD_LEFT);
                             $nomor3                 = 'INV'.date('Ymd');
                             $data['invoice_code']   = $nomor3.$nomor2;

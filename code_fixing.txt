@@ -1,0 +1,129 @@
+PERBAIKAN NOMOR INVOICE BERAKHIRAN Array
+=========================================
+
+1. Latar Belakang
+-----------------
+Data lama pada kolom test.invoice_code dapat berisi kata "Array", contoh:
+
+INV202606125882Array
+
+Masalah ini terjadi karena nilai POST therapy_id berupa array PHP kemudian
+langsung digabung ke string pembentuk nomor invoice. Terapkan perubahan pada
+application/controllers/Rekam.php agar pembentukan nomor invoice berikutnya
+aman:
+
+$therapy_code = is_array($therapy_id) ? implode('', $therapy_id) : $therapy_id;
+$nomor1 = $client_id.$test_id.$therapy_code;
+$nomor2 = str_pad($nomor1, 5, '0', STR_PAD_LEFT);
+$nomor3 = 'INV'.date('Ymd');
+$data['invoice_code'] = $nomor3.$nomor2;
+
+Jika nama tabel atau kolom menggunakan prefiks database, sesuaikan nama tabel
+di query berikut.
+
+
+2. Perbaikan Data Lama di cPanel
+---------------------------------
+1. Masuk ke cPanel hosting.
+2. Buka phpMyAdmin.
+3. Pilih database produksi aplikasi.
+4. Pilih tab SQL.
+5. Jalankan query backup berikut terlebih dahulu.
+
+CREATE TABLE IF NOT EXISTS test_invoice_code_backup (
+    test_id INT NOT NULL,
+    old_invoice_code VARCHAR(255) NOT NULL,
+    backed_up_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (test_id)
+);
+
+INSERT INTO test_invoice_code_backup
+    (test_id, old_invoice_code, backed_up_at)
+SELECT test_id, invoice_code, NOW()
+FROM test
+WHERE invoice_code LIKE '%Array%'
+ON DUPLICATE KEY UPDATE
+    old_invoice_code = VALUES(old_invoice_code),
+    backed_up_at = NOW();
+
+6. Jalankan query untuk memperbaiki nomor invoice lama. Query ini hanya mengubah
+   nomor yang mengandung kata "Array":
+
+UPDATE test
+SET invoice_code = REPLACE(invoice_code, 'Array', '')
+WHERE invoice_code LIKE '%Array%';
+
+7. Verifikasi bahwa tidak ada data bermasalah tersisa:
+
+SELECT test_id, invoice_code
+FROM test
+WHERE invoice_code LIKE '%Array%';
+
+Jika hasilnya kosong, jalankan pengecekan jumlah berikut. Nilainya harus 0:
+
+SELECT COUNT(*) AS jumlah_bermasalah
+FROM test
+WHERE invoice_code LIKE '%Array%';
+
+Contoh hasil yang benar:
+
+INV202606125882Array
+menjadi
+INV202606125882
+
+
+3. Mengembalikan Data Lama Jika Perlu
+-------------------------------------
+Jika perlu membatalkan pembaruan, gunakan query berikut:
+
+UPDATE test AS t
+JOIN test_invoice_code_backup AS b ON b.test_id = t.test_id
+SET t.invoice_code = b.old_invoice_code;
+
+Catatan: tabel backup hanya menyimpan data lama. Jangan menjalankan query
+pengembalian jika pembaruan sudah sengaja diterapkan dan kode lama sudah ingin
+dihapus permanen.
+
+
+4. Langkah Setelah Deployment cPanel
+------------------------------------
+1. Upload versi terbaru application/controllers/Rekam.php ke server produksi.
+2. Pastikan tidak ada cache PHP lama yang digunakan oleh hosting.
+3. Buat satu invoice baru melalui aplikasi untuk memastikan hasil tidak lagi
+   mengandung kata "Array".
+4. Jalankan query verifikasi pada bagian 2 untuk memastikan data lama dan data
+   baru sudah bersih.
+5. Disarankan melakukan backup database lengkap sebelum menjalankan SQL produksi.
+
+
+5. Persyaratan PHP dan Error Named Argument TCPDF
+-------------------------------------------------
+Library pdf-php8 membutuhkan PHP 8.2 atau lebih baru. Sebelum deploy:
+
+1. Buka cPanel, masuk ke MultiPHP Manager atau Select PHP Version.
+2. Aktifkan domain/subdomain aplikasi.
+3. Pilih PHP versi 8.2 atau lebih baru.
+4. Aktifkan ekstensi yang diperlukan, minimal ctype, filter, mbstring, openssl,
+pcre, xml, dan zlib.
+5. Restart atau apply perubahan PHP.
+
+Kode pemanggil TCPDF tidak boleh menggunakan named argument pada PHP lama. Gunakan
+parameter posisi:
+
+$pdf = new \Com\Tecnick\Pdf\Tcpdf('mm');
+$pdf->addHTMLCell($html, 10, 5, 190);
+
+Walaupun pemanggil sudah kompatibel, hosting tetap harus menjalankan PHP 8.2+
+karena library pdf-php8 modern dan dependency Composer memerlukan PHP 8.2 ke atas.
+
+
+6. Cara Manual Tanpa SQL
+------------------------
+Jika akses SQL tidak memungkinkan, nomor yang bermasalah dapat diperbaiki
+melalui phpMyAdmin:
+1. Pilih database dan tabel test.
+2. Gunakan menu Search atau filter pada kolom invoice_code.
+3. Cari nilai yang mengandung "Array".
+4. Edit setiap baris dan hapus kata "Array" dari akhir nomor invoice.
+Cara ini hanya disarankan jika jumlah data sedikit. Untuk banyak data, UPDATE SQL
+di atas jauh lebih cepat dan konsisten.
