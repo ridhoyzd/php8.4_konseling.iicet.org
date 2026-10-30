@@ -32,6 +32,10 @@
         //----------------------------------------------------------------------
         public static function png($frame, $filename = false, $pixelPerPoint = 4, $outerFrame = 4,$saveandprint=FALSE) 
         {
+            if (!function_exists('imagecreate')) {
+                return self::pngWithoutGd($frame, $filename, $pixelPerPoint, $outerFrame, $saveandprint);
+            }
+
             $image = self::image($frame, $pixelPerPoint, $outerFrame);
             
             if ($filename === false) {
@@ -48,6 +52,65 @@
             }
             
             ImageDestroy($image);
+        }
+
+        //----------------------------------------------------------------------
+        private static function pngWithoutGd($frame, $filename, $pixelPerPoint, $outerFrame, $saveandprint)
+        {
+            $sourceHeight = count($frame);
+            $sourceWidth = strlen($frame[0]);
+            $width = ($sourceWidth + 2 * $outerFrame) * $pixelPerPoint;
+            $height = ($sourceHeight + 2 * $outerFrame) * $pixelPerPoint;
+
+            $pixels = array();
+            for ($y = 0; $y < $height; $y++) {
+                $sourceY = (int) floor($y / $pixelPerPoint) - $outerFrame;
+                $row = chr(0);
+                for ($x = 0; $x < $width; $x++) {
+                    $sourceX = (int) floor($x / $pixelPerPoint) - $outerFrame;
+                    if ($sourceY >= 0 && $sourceY < $sourceHeight
+                        && $sourceX >= 0 && $sourceX < $sourceWidth
+                        && $frame[$sourceY][$sourceX] === '1') {
+                        $color = self::$white;
+                    } else {
+                        $color = self::$black;
+                    }
+                    $row .= chr($color[0]).chr($color[1]).chr($color[2]);
+                }
+                $pixels[] = $row;
+            }
+
+            $png = self::createPng($width, $height, implode('', $pixels));
+            if ($filename !== false) {
+                if (file_put_contents($filename, $png) === false) {
+                    throw new RuntimeException('Unable to write QR code image: '.$filename);
+                }
+            }
+
+            if ($filename === false || $saveandprint === true) {
+                header('Content-type: image/png');
+                echo $png;
+            }
+        }
+
+        //----------------------------------------------------------------------
+        private static function createPng($width, $height, $pixels)
+        {
+            $pngSignature = "\x89PNG\r\n\x1a\n";
+            $header = pack('NNCCCCC', $width, $height, 8, 2, 0, 0, 0);
+            $png = $pngSignature
+                .self::pngChunk('IHDR', $header)
+                .self::pngChunk('IDAT', gzcompress($pixels))
+                .self::pngChunk('IEND', '');
+
+            return $png;
+        }
+
+        //----------------------------------------------------------------------
+        private static function pngChunk($type, $data)
+        {
+            return pack('N', strlen($data)).$type.$data
+                .pack('N', crc32($type.$data) & 0xffffffff);
         }
     
         //----------------------------------------------------------------------
