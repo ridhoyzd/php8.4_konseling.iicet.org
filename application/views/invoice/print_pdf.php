@@ -2,8 +2,60 @@
 
 require_once(APPPATH . 'libraries/pdf-php8/vendor/autoload.php');
 
+$pdf_font_root = APPPATH . 'libraries/pdf-php8/vendor/tecnickcom/tc-lib-pdf-font/target/fonts';
+$fallback_font_root = APPPATH . 'libraries/pdf-php8/fonts';
+$pdf_font_file = '';
+$pdf_font_variants = ['helvetica', 'helveticab', 'helveticai', 'helveticabi'];
+$pdf_missing_fonts = [];
+
+foreach ($pdf_font_variants as $pdf_font_variant) {
+    $pdf_font_paths = [
+        $pdf_font_root . '/' . $pdf_font_variant . '.json',
+        $pdf_font_root . '/core/' . $pdf_font_variant . '.json',
+    ];
+    if (!array_filter($pdf_font_paths, 'is_readable')) {
+        $pdf_font_root = $fallback_font_root;
+        break;
+    }
+}
+
+if (!is_dir($pdf_font_root)) {
+    $pdf_font_root = $fallback_font_root;
+}
+
+$pdf_font_root = realpath($pdf_font_root);
+foreach ($pdf_font_variants as $pdf_font_variant) {
+    $pdf_font_paths = [
+        $pdf_font_root !== false ? $pdf_font_root . '/' . $pdf_font_variant . '.json' : '',
+        $pdf_font_root !== false ? $pdf_font_root . '/core/' . $pdf_font_variant . '.json' : '',
+    ];
+    if (!array_filter($pdf_font_paths, 'is_readable')) {
+        $pdf_missing_fonts[] = $pdf_font_variant . '.json';
+    }
+}
+
+if ($pdf_font_root !== false && is_readable($pdf_font_root . '/core/helvetica.json')) {
+    $pdf_font_file = realpath($pdf_font_root . '/core/helvetica.json');
+} elseif ($pdf_font_root !== false && is_readable($pdf_font_root . '/helvetica.json')) {
+    $pdf_font_file = realpath($pdf_font_root . '/helvetica.json');
+}
+
+if ($pdf_font_file === false || $pdf_font_file === '') {
+    throw new RuntimeException(
+        'PDF font definition not found. Expected helvetica.json in: '
+        . APPPATH . 'libraries/pdf-php8/vendor/tecnickcom/tc-lib-pdf-font/target/fonts/core'
+    );
+}
+
+if ($pdf_missing_fonts !== []) {
+    throw new RuntimeException(
+        'PDF font definitions are unreadable: ' . implode(', ', $pdf_missing_fonts)
+        . '. Font root: ' . ($pdf_font_root === false ? 'not found' : $pdf_font_root)
+    );
+}
+
 if (!defined('K_PATH_FONTS')) {
-    define('K_PATH_FONTS', realpath(APPPATH . 'libraries/pdf-php8/vendor/tecnickcom/tc-lib-pdf-font/target/fonts'));
+    define('K_PATH_FONTS', $pdf_font_root);
 }
 
 function pdf_remove_png_icc_profile($png_data)
@@ -94,7 +146,15 @@ $html = '<div style="font-family:helvetica;font-size:10pt;color:#535353;">'
 $pdf = new \Com\Tecnick\Pdf\Tcpdf('mm');
 $pdf->setPDFFilename('Invoice-' . $test_id . '.pdf');
 $page = $pdf->addPage(['format' => 'A4', 'orientation' => 'P']);
-$bfont = $pdf->font->insert($pdf->pon, 'helvetica', '', 10);
+$bfont = $pdf->font->insert(
+    $pdf->pon,
+    'helvetica',
+    '',
+    10,
+    null,
+    null,
+    $pdf_font_file
+);
 $pdf->page->addContent($bfont['out']);
 $pdf->addHTMLCell($html, 10, 5, 190);
 
